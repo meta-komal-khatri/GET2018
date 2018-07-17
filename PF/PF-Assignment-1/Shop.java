@@ -83,11 +83,60 @@ class Cart{
 		ptr=product;
 		for(int i=0;i<size;i++){
 			System.out.println(ptr.getProductId()+" "+ptr.getProductName()+" "+ptr.getProductPrice());
-			ptr=ptr.getNextProduct();
+ 			ptr=ptr.getNextProduct();
 		}
 	} 
-	public void removeFromCart(String Product_Name){
-		
+	public String removeFromCart(String Product_Name){
+		Product location,locationprev,save,ptr;
+		location=null;
+		locationprev=null;
+		int n=size;
+		if(product==null){
+			location=null;
+			locationprev=null;
+		}
+		else if(Product_Name.equals(product.getProductName())){
+			location=product;
+			locationprev=null;
+			--size;	
+		}
+		else{
+			save=product;
+			ptr=product.getNextProduct();
+			while(ptr!=null){
+				if(Product_Name.equals(ptr.getProductName())){
+					location=ptr;
+					locationprev=save;
+					--size;
+					break;
+				}
+				else{
+					save=ptr;
+					ptr=ptr.getNextProduct();
+				}
+			}
+		}
+		if(n==size){
+			location=null;
+		}
+		if(location==null)
+			System.out.println("element is not in list");
+		if(locationprev==null)
+			product=product.getNextProduct();
+		else
+			locationprev=location.getNextProduct();
+		return location.getProductName();
+				
+	}
+	public int generateBill(){
+		Product ptr;
+		int Total_bill=0;
+		ptr=product;
+		for(int i=0;i<size;i++){
+			Total_bill+=ptr.getProductPrice();
+			ptr=ptr.getNextProduct();
+		}
+		return Total_bill;
 	}
 }
 public class Shop{
@@ -99,6 +148,8 @@ public class Shop{
 		System.out.println("1. Add");
 		System.out.println("2. Update");
 		System.out.println("3. View");
+		System.out.println("4. Remove");
+		System.out.println("5. Generate Bill");
 		System.out.println("Enter Your Choice");
 		int choice=sc.nextInt();
 		switch(choice){
@@ -127,6 +178,16 @@ public class Shop{
 				break;
 			case 3:
 				cart.view();
+				break;
+			case 4:
+				
+				System.out.println("Enter Product To Be Deleted");
+				String name3=sc.next();
+				cart.removeFromCart(name3);
+				break;
+			case 5:
+				cart.view();
+				System.out.println("Total Amount:"+cart.generateBill());
 				break;
 			default:
 				System.out.println("wrong choice");
