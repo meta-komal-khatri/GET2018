@@ -1,6 +1,12 @@
 package hexcal;
 
 import java.util.Scanner;
+/**
+ * 
+ * class to use HexadecimalCalculator
+ * perform all arithmetic operations
+ *
+ */
 
 public class Calculator {
 	
@@ -9,7 +15,7 @@ public class Calculator {
 		sc = new Scanner(System.in);
 		String answer;
 		HexadecimalCalculator hexadecimalcalculator = new HexadecimalCalculator();
-		
+		HexadecimalCompare hexcompare=new HexadecimalCompare();
 		char ch;
 		String fHex;
 		String sHex;
@@ -43,12 +49,28 @@ public class Calculator {
 				case 4:
 					try{
 					answer=hexadecimalcalculator.subtractHexNumber(Fhex, Shex);
-					System.out.println("Addition of HexaDecimal Number is:"+answer);
+					if(answer==null){
+						System.out.println("Division is not posiible");
+					}
+					else{
+					System.out.println("Division of HexaDecimal Number is:"+answer);
+					}
 					}
 					catch(Exception e){
 						System.out.println("error:"+e.getMessage());
 					}
 					break;
+				case 5:
+					if(hexcompare.areEqualHexNumbers(Fhex,Shex)){
+						System.out.println("Both Numbers Are Equal");
+					}
+					else if(hexcompare.greaterHexNumbers(Fhex,Shex)){
+						System.out.println("First Number Is Greater");
+					}
+					else{
+						System.out.println("Second Number Is Greater");
+					}
+					
 				
 				default:
 					System.out.println("wrong choice");
