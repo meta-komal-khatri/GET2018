@@ -24,6 +24,9 @@ public class Calculator {
 			System.out.println("2. Subtract");
 			System.out.println("3. Multiply");
 			System.out.println("4. Divide");
+			System.out.println("5. Check for Equality");
+			/*System.out.println("6. check first String greater or not");
+			System.out.println("6. check first String lesser or not");*/
 			System.out.println("Enter Your Choice");
 			int choice=sc.nextInt();
 			System.out.println("Enetr First Hexsdecimal Number"); 
@@ -70,6 +73,7 @@ public class Calculator {
 					else{
 						System.out.println("Second Number Is Greater");
 					}
+					break;
 					
 				
 				default:
