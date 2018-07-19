@@ -53,8 +53,8 @@ public class StringOperation {
 			return rev;
 		}
 		/**
-		 * Receive a string as parameter and replace lowercase characters with
-		 *  uppercase and vice-versa.
+		 * Receive a string as parameter and replace lower case characters with
+		 *  upper case and vice-versa.
 		 * @param convert should not be null
 		 * @return converted array
 		 * @throws NullPointerException if convert is empty 
@@ -83,7 +83,8 @@ public class StringOperation {
 			return rev;
 		}
 		/**
-		 * Find largest word among all words of a sentence
+		 * Find largest word among all words of a sentence and 
+		 * If two words are of same length then return last word
 		 * @param input should not be null
 		 * @return largestString 
 		 */
@@ -91,6 +92,7 @@ public class StringOperation {
 			if(input==null) {
 				throw new NullPointerException("Null Strings are not allowed");
 			}
+			input=input+' ';
 			//char[] largest=input.toCharArray();
 			int maxLength=0,length=0,SIndex=0,MaxSIndex=0;
 			for(int i=0;i<input.length();i++) {
@@ -98,8 +100,8 @@ public class StringOperation {
 					length++;
 				}
 				else{
-					int currentlength=length+1-SIndex;
-					if(maxLength<currentlength) {
+					int currentlength=length-SIndex;
+					if(maxLength<=currentlength) {
 						maxLength=currentlength;
 						MaxSIndex=SIndex;
 						
@@ -109,6 +111,7 @@ public class StringOperation {
 					
 					
 			   }
+				
 			}
 			String Result=input.substring(MaxSIndex, (maxLength+MaxSIndex));
 			return Result;

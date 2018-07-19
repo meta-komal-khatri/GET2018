@@ -14,6 +14,7 @@ public class Operation {
 			System.out.println("4. Find Largest Word");
 			System.out.println("Enter Your Choice");
 			int choice=sc.nextInt();
+			sc.nextLine();
 			
 			String inputString1,inputString2;
 			switch(choice){
@@ -65,7 +66,7 @@ public class Operation {
 					break;
 				case 4:
 					System.out.println("Enetr First String"); 
-					inputString1=sc.next();
+					inputString1=sc.nextLine();
 					try{
 						String largest=stringOperation.largestWord(inputString1);
 						
@@ -84,6 +85,7 @@ public class Operation {
 			System.out.println("Do you want to continue? if yes press Y or y");
 			ch=sc.next().charAt(0);
 		}while(ch=='Y'||ch=='y');
+		sc.close();
 		}
 	 
  
