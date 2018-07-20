@@ -1,0 +1,87 @@
+package arroperation;
+
+import java.util.Scanner;
+
+public class ArrOperation {
+	public static void main(String args[]){
+		Scanner sc=new Scanner(System.in);
+		System.out.println("enter");
+		int size=sc.nextInt();
+		int clump=0;
+		int[] arr=new int[size];
+		for(int i=0;i<size;i++){
+			System.out.println("enetr "+(i+1));
+			arr[i]=sc.nextInt();
+		}
+		/*for(int i=0;i<(size-1);i++){
+			if(arr[i]==arr[i+1]){
+				if((i-1)==-1){
+					clump++;
+				}
+				else{
+					if(arr[i-1]!=arr[i]){
+					clump++;
+					
+					}
+				}
+				
+			}
+		}*/
+		int sum=0;
+		for(int i=0;i<size;i++){
+			sum=sum+arr[i];
+			
+			
+		}
+		System.out.println("result:"+sum);
+		int sum1=0,sum2=0;
+		for(int i=0;i<size;i++){
+			sum1=sum1+arr[i];
+			sum2=sum-sum1;
+			if(sum1==sum2){
+				System.out.println("result:"+(i+1));
+				break;
+			}
+		}
+		int k=0;
+		if(arr[size-1]==4) {
+			System.out.println("wrong input");
+			System.exit(0);
+		}
+		int y=11;
+		for(int i=0;i<size;i++) {
+			if(arr[i]==4) {
+				if(arr[i+1]!=4) {
+					for(int j=k;j<size;) {
+						System.out.println(j);
+						if(arr[j]==5 && j!=y) {
+							int temp=arr[i+1];
+							arr[i+1]=arr[j];
+							arr[j]=temp;
+							k=j+1;
+							y=i+1;
+							//i=i+2;
+							System.out.println(k+y);
+							break;
+						}
+						else {
+							j++;
+						}
+					}	
+				}
+				else {
+					System.out.println("Two 4 can't be together");
+					break;
+				}
+			}
+		}
+		System.out.println("-------------------------");
+		for(int i=0;i<size;i++) {
+			
+			System.out.println(arr[i]);
+		}
+		
+		
+	}
+	  
+}
