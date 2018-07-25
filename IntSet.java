@@ -18,10 +18,14 @@ public final class IntSet {
 		if(setArray.length==0){
 			throw new AssertionError("Set Empty");
 		}
-		boolean[] markEnteredValues=new boolean[1000];
+		if(!checkRangeOfSetArray()){
+			throw new AssertionError("elements are not in range");
+		}
+		boolean[] markEnteredValues=new boolean[1001];
 		for(int i=1;i<=1000;i++){
 			markEnteredValues[i]=false;
 		}
+		//checks repeated elements exist or not
 		for(int i=0;i<setArray.length;i++){
 			if(markEnteredValues[setArray[i]]){
 				throw new AssertionError("repeated Elements Are Not Allowed");
@@ -30,9 +34,7 @@ public final class IntSet {
 				markEnteredValues[setArray[i]]=true;
 			}
 		}
-		if(!checkRangeOfSetArray()){
-			throw new AssertionError("elements are not in range");
-		}
+		
 	}
 	
 	/**
@@ -87,94 +89,7 @@ public final class IntSet {
 			}
 		}
 		return true;
-	}
-	/**
-	 * union two sets such that set contains all elements of set1 and set2
-	 * @param set1 should in range from 1-1000
-	 * @param set2 should in range from 1-1000
-	 * @return set 
-	 */
-	/*public IntSet unionSet1(IntSet set1,IntSet set2){
-		int[] setArray2=new int[set1.size()+set2.size()];
-		int[] setArraySet1=new int[set1.size()+1];
-		int[] setArraySet2=new int[set2.size()+1];
-		for(int i=0;i<set1.size();i++){
-			setArraySet1[i]=set1.setArray[i];
-		}
-		for(int i=0;i<set2.size();i++){
-			setArraySet2[i]=set2.setArray[i];
-		}
-		setArraySet1[set1.size()]=Integer.MAX_VALUE;
-		setArraySet2[size()]=Integer.MAX_VALUE;
-		int i=0,j=0,k=0;
-		while(i<=set1.size() && j<=set2.size())
-			
-	    { 	System.out.print("\t"+k+"loop");
-			System.out.print("\t"+setArray2[k]);
-	        if (setArraySet1[i] < setArraySet2[j])
-	        {
-	            setArray2[k++] = setArraySet1[i];
-	            
-	            System.out.print("\t"+setArray2[k]);
-	            i++;
-	        }
-	        else if(setArraySet1[i]>setArraySet2[j])
-	        {
-	           setArray2[k++] = setArraySet2[j];
-	           System.out.print("\t"+setArray2[k]);
-	            j++;
-	        }
-	        else{
-	        	setArray2[k++]=setArraySet2[j];
-	        	i++;
-	        	j++;
-	        }
-	        //System.out.println(setArray1[k]);
-	       
-	        System.out.print("\t"+setArray2[k]);
-	        
-	    }
-		 IntSet intset=new IntSet(setArray2);
-		 return intset;
-		
-		
-	}*/
-	public IntSet union(IntSet set){
-		int[] setArray2=new int[size()+set.size()];
-		int i=0,j=0,k=0,l=0;
-		int size;
-		if(size()>set.size()){
-			size=size();
-		}
-		else{
-			size=set.size();
-		}
-		while(k<size)
-			
-	    { 	System.out.println(Arrays.toString(setArray2));
-	        if (setArray[i] < set.setArray[j] && i<size() )
-	        {
-	            setArray2[k] = setArray[i];
-	            i++;
-	        }
-	        else if(setArray[i] > set.setArray[j] && j<set.size())
-	        {
-	           setArray2[k] = set.setArray[j];
-	            j++;
-	        }
-	        else{
-	        	setArray2[k]=set.setArray[j];
-	        	i++;
-	        	j++;
-	        }
-	        k++;
-	        
-	    }
-		System.out.println(Arrays.toString(setArray2));
-		IntSet intset=new IntSet(setArray2);
-		return intset;
-	}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+	}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 	/**
 	 * initializes universal array
 	 */
@@ -196,14 +111,9 @@ public final class IntSet {
 		for(int i=0;i<1000;i++){
 			if(!(isMember(i+1))){
 				complimentedArray[j]=i+1;
-				j++;}
-				
-				
-			
-		}
-		System.out.println(Arrays.toString(complimentedArray));
-		
-		
+				j++;
+			}	
+		}		
 		int[] compliment=new int[j];
 		for(int i=0;i<compliment.length;i++){
 			compliment[i]=complimentedArray[i];
@@ -212,6 +122,34 @@ public final class IntSet {
 		IntSet intset=new IntSet(compliment);
 		return intset;
 	}
+	/**
+	 * union two sets such that set contains all elements of set1 and set2
+	 * @param set should in range from 1-1000
+	 * @return set 
+	 */
+	public IntSet union(IntSet set) {
+		int k=0;
+		int[] temporaryArray=new int[size()+set.size()];
+		for(int i=0;i<size();i++) {
+			temporaryArray[k]=setArray[i];
+			k++;
+		}
+		for(int i=0;i<set.size();i++) {
+			if(!isMember(set.setArray[i])) {
+				temporaryArray[k]=set.setArray[i];
+				k++;
+			}
+		}
+		System.out.println(Arrays.toString(temporaryArray));
+		int[] setArray=new int[k];
+		for(int i=0;i<k;i++) {
+			setArray[i]=temporaryArray[i];
+		}
+		return new IntSet(setArray);
+	}
+	/**
+	 * @return set of array
+	 */
 	public int[] getSetArray(){
 		int[] setArray=new int[this.setArray.length];
 		for(int i=0;i<setArray.length;i++){
@@ -219,6 +157,5 @@ public final class IntSet {
 		}
 		return setArray;
 	}
-	
 	
 }

@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.Arrays;
 
+import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsNot;
 import org.junit.Test;
 
 public class IntSetTest {
@@ -14,8 +16,8 @@ public class IntSetTest {
 	}
 	
 	@Test(expected=AssertionError.class)
-	public void throwsAssertionErrorIfSetIsUnsorted(){
-		IntSet intSet=new IntSet(new int[]{1,3,2,8,4});
+	public void throwsAssertionErrorIfSetHasRepeatedElements(){
+		IntSet intSet=new IntSet(new int[]{1,3,2,2,4});
 	}
 	
 	@Test(expected=AssertionError.class)
@@ -45,10 +47,7 @@ public class IntSetTest {
 		for(int i=0;i<1000;i++){
 			if(!(intSet.isMember(i+1))){
 				expectedArray[j]=i+1;
-				j++;}
-				
-				
-			
+				j++;}		
 		}
 		System.out.println(Arrays.toString(expectedArray));
 		int[] arra=intSet.compliment().getSetArray();
@@ -57,5 +56,13 @@ public class IntSetTest {
 		}
 		assertArrayEquals(expectedArray,(intSet.compliment()).getSetArray());
 	}
-
+	@Test
+	public void unionTest() {
+		IntSet intSet=new IntSet(new int[]{1,3,5,8,12,15,18,40});
+		assertArrayEquals(new int[]{1,3,5,8,12,15,18,40,2,4,7},intSet.union(new IntSet(new int[] {3,2,5,4,7,8})).getSetArray());
+		IntSet intSet1=new IntSet(new int[] {1,4,6,2,8});
+		assertArrayEquals(new int[]{1,4,6,2,8},intSet1.union(new IntSet(new int[] {1,4,6,2,8})).getSetArray());
+		assertThat(new int[]{1,4,6,2,8}, IsNot.not(IsEqual.equalTo(intSet.union(new IntSet(new int[] {3,2,5,4,7,8})).getSetArray())));
+				
+	}
 }
