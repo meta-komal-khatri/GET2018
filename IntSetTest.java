@@ -2,6 +2,8 @@ package scfsession6;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 
 public class IntSetTest {
@@ -40,14 +42,15 @@ public class IntSetTest {
 		IntSet intSet=new IntSet(new int[]{1,3,5,8,12,15,18,40});
 		int[] expectedArray=new int[1000-intSet.size()];
 		int j=0;
-		for(int i=0;i<expectedArray.length;i++){
-			if(!intSet.isMember(i+1)){
+		for(int i=0;i<1000;i++){
+			if(!(intSet.isMember(i+1))){
 				expectedArray[j]=i+1;
-				j++;
-				//System.out.println("test"+expectedArray[j-1]);
+				j++;}
 				
-			}
+				
+			
 		}
+		System.out.println(Arrays.toString(expectedArray));
 		int[] arra=intSet.compliment().getSetArray();
 		for(int i=0;i<arra.length;i++){
 			//System.out.println("test"+arra[i]);

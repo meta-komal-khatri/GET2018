@@ -1,23 +1,40 @@
 package scfsession6;
 
+import java.util.Arrays;
+
 public final class IntSet {
 	private final int[] setArray;
 	private int[] universalArray;
 	public IntSet(int[] setArray){
+		                         
 		this.setArray=setArray;
+		validate();
+	
+	}
+	/**
+	 * to check errors 
+	 */
+	private void validate(){
 		if(setArray.length==0){
 			throw new AssertionError("Set Empty");
 		}
-		for(int i=0;i<setArray.length-1;i++){
-			if(setArray[i]>=setArray[i+1]){
-				throw new AssertionError("Set must be sorted in increasing order or no duplicate elements allowed");
+		boolean[] markEnteredValues=new boolean[1000];
+		for(int i=1;i<=1000;i++){
+			markEnteredValues[i]=false;
+		}
+		for(int i=0;i<setArray.length;i++){
+			if(markEnteredValues[setArray[i]]){
+				throw new AssertionError("repeated Elements Are Not Allowed");
+			}
+			else{
+				markEnteredValues[setArray[i]]=true;
 			}
 		}
 		if(!checkRangeOfSetArray()){
 			throw new AssertionError("elements are not in range");
 		}
-		
 	}
+	
 	/**
 	 * checks that does given set contain x or not  
 	 * @param x always integer and between 1 to 1000
@@ -77,7 +94,7 @@ public final class IntSet {
 	 * @param set2 should in range from 1-1000
 	 * @return set 
 	 */
-	public IntSet unionSet1(IntSet set1,IntSet set2){
+	/*public IntSet unionSet1(IntSet set1,IntSet set2){
 		int[] setArray2=new int[set1.size()+set2.size()];
 		int[] setArraySet1=new int[set1.size()+1];
 		int[] setArraySet2=new int[set2.size()+1];
@@ -121,62 +138,43 @@ public final class IntSet {
 		 return intset;
 		
 		
-	}
-	/*public IntSet unionSet(IntSet set1){
-		int[] setArray2=new int[set1.size()+size()];
-		int[] setArrayset1=new int[set1.size()+1];
-		int[] setArraythis=new int[size()+1];
-		/*setArrayset1=set1.setArray;
-		setArraythis=setArray;
-		setArrayset1[set1.size()]=10001;
-		setArraythis[size()]=10002;*/
-		//int i=0,j=0,k=0;
-		//set1.setArray[set1.size()]=1001;
-		/*for(int h=0;h<set1.size();h++){
-			System.out.println(set1.setArray[h]);
-		}
-		System.out.println("-----------");
-		for(int h=0;h<size();h++){
-			System.out.println(setArray[h]);
-		}
-		
-		while(i<set1.size() && j<size())
-		    {
-		        if (set1.setArray[i] < setArray[j])
-		        {
-		            setArray2[k] = set1.setArray[i];
-		            i++;
-		        }
-		        else if(set1.setArray[i]>setArray[j])
-		        {
-		           setArray2[k] = setArray[j];
-		            j++;
-		        }
-		        else{
-		        	setArray2[k]=set1.setArray[j];
-		        	i++;
-		        	j++;
-		        }
-		        //System.out.println(setArray1[k]);
-		        k++;
-		        System.out.print("\t"+setArray2[k]);
-		        
-		    }
-		System.out.println("-----------");
-		for(int h=0;h<setArray2.length;h++){
-			System.out.println(setArray2[h]);
-		}
-		//System.out.println(set1);
-		 //System.out.println(setArray1[0]);
-		 IntSet intset=new IntSet(setArray2);
-		 return intset;
-		for(int a=0;a<size();a++){
-			if(set1.isMember(setArray[a])){
-				count
-			}
-		}
-		                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 	}*/
+	public IntSet union(IntSet set){
+		int[] setArray2=new int[size()+set.size()];
+		int i=0,j=0,k=0,l=0;
+		int size;
+		if(size()>set.size()){
+			size=size();
+		}
+		else{
+			size=set.size();
+		}
+		while(k<size)
+			
+	    { 	System.out.println(Arrays.toString(setArray2));
+	        if (setArray[i] < set.setArray[j] && i<size() )
+	        {
+	            setArray2[k] = setArray[i];
+	            i++;
+	        }
+	        else if(setArray[i] > set.setArray[j] && j<set.size())
+	        {
+	           setArray2[k] = set.setArray[j];
+	            j++;
+	        }
+	        else{
+	        	setArray2[k]=set.setArray[j];
+	        	i++;
+	        	j++;
+	        }
+	        k++;
+	        
+	    }
+		System.out.println(Arrays.toString(setArray2));
+		IntSet intset=new IntSet(setArray2);
+		return intset;
+	}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 	/**
 	 * initializes universal array
 	 */
@@ -192,25 +190,25 @@ public final class IntSet {
 	 */
 	public IntSet compliment(){
 		int counter=0;
+		int j=0;
 		initializeUniversalArray();
 		int[] complimentedArray=new int[universalArray.length];
 		for(int i=0;i<1000;i++){
-			if(!isMember(i+1)){
-			complimentedArray[i]=universalArray[i];
-			counter++;
+			if(!(isMember(i+1))){
+				complimentedArray[j]=i+1;
+				j++;}
+				
+				
 			
-			
-			}
 		}
-		System.out.println("counter"+counter);
+		System.out.println(Arrays.toString(complimentedArray));
 		
-		int[] compliment=new int[counter];
+		
+		int[] compliment=new int[j];
 		for(int i=0;i<compliment.length;i++){
 			compliment[i]=complimentedArray[i];
 		}
-		for(int i=0;i<counter;i++){
-			System.out.println("komal"+compliment[i]);
-		}
+		
 		IntSet intset=new IntSet(compliment);
 		return intset;
 	}
